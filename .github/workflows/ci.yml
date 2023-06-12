@@ -11,13 +11,9 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v3
-        - name: List files in the repository
-          run: |
-            ls ${{ github.workspace }}
         - uses: addnab/docker-run-action@v3
           with:
             image: smartbear/soapuios-testrunner
-            shell: bash
             options: -e COMMAND_LINE="'/%project%/avanstestsuite.xml'" -it echo $?
             run: |
                 echo $?
