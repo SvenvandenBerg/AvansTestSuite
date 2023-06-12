@@ -14,6 +14,6 @@ jobs:
         - uses: addnab/docker-run-action@v3
           with:
             image: smartbear/soapuios-testrunner
-            options: -v="./src/test/soapui":/project COMMAND_LINE="'/%project%/AvansTestSuite-soapui-project.xml'" -it
+            options: -v="${{ env.GITHUB_WORKSPACE }}/src/test/soapui":/project COMMAND_LINE="'/%project%/AvansTestSuite-soapui-project.xml'" -it
             run: |
                 echo $?
