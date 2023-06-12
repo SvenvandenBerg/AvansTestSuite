@@ -1,7 +1,6 @@
 name: SoapUI API test
 
 on: 
-    workflow_dispatch:
     push:
         branches: [ "main" ]
     pull_request:
@@ -10,9 +9,6 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
-        env:
-            SOAPUI_PROJECT_DIR: ""
-            SOAPUI_PROJECT_FILE: ""
         steps:
         - uses: addnab/docker-run-action@v3
           with:
