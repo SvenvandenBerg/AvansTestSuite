@@ -31,7 +31,7 @@ jobs:
                         project --path ${{ github.workspace }}/demowebshopp.zip upload
             
         - name: Run Neoload test
-          run: neoload run
+          run: neoload run --name "My Github Test With CLI"
             
         - name: "Generate Test Report"
           run: neoload test-results junitsla
