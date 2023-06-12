@@ -16,5 +16,7 @@ jobs:
             image: smartbear/soapuios-testrunner
             options: -v=/src/test/soapui:/project -i --entrypoint /bin/bash
             run: |
+                echo "Project"
                 ls /project
-                $SOAPUI_DIR/bin/testrunner.sh /project/avanstestsuite.xml
+                echo "Test"
+                ./SoapUI-5.7.0/bin/testrunner.sh /project/avanstestsuite.xml
