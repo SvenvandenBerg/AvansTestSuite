@@ -34,11 +34,4 @@ jobs:
           run: neoload run --name "My Github Test With CLI"
             
         - name: "Generate Test Report"
-          run: neoload test-results junitsla
-    
-        - name: "Publish Test Report"
-          if: ${{ always() }}
-          uses: scacap/action-surefire-report@v1
-          with:
-            report_paths: junit-sla.xml
-            fail_on_test_failures: true
+          run: neoload test-results
