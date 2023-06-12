@@ -20,9 +20,25 @@ jobs:
             options: -v=${{ github.workspace }}${{ env.soapui-projectfile-location }}:/project --entrypoint /bin/bash
             run: |
                 ./$SOAPUI_DIR/bin/testrunner.sh ${{ env.soapui-projectfile-name }}
-        - name: Neoload test
-          run: |
-            python -m pip install -U pip
-            pip3 install neoload
-            neoload login 579d0fd1ebc40b7fe1d0af8dc8d0cea9ec29fe914b67edea
-            neoload run 2466ad7f-b2de-4e53-b4c5-fe949d7c9b02
+
+        - name: "Prepare NeoLoad test"
+            run: >
+                neoload login --url 'https://neoload-api.saas.neotys.com/' '579d0fd1ebc40b7fe1d0af8dc8d0cea9ec29fe914b67edea' \
+                        test-settings --zone defaultzone --scenario 'HappyFlow' createorpatch "My Github Test With CLI" \
+                        project --path demowebshopp.zip upload
+            
+        - name: Extract Neoload test project
+          run: unzip demowebshopp.zip -d demowebshopp
+            
+        - name: Run Neoload test
+          run: neoload run --scenario 'HappyFlow'
+            
+        - name: "Generate Test Report"
+          run: neoload test-results junitsla
+    
+        - name: "Publish Test Report"
+          if: ${{ always() }}
+          uses: scacap/action-surefire-report@v1
+          with:
+            report_paths: junit-sla.xml
+            fail_on_test_failures: true
