@@ -17,6 +17,7 @@ jobs:
         - uses: addnab/docker-run-action@v3
           with:
             image: smartbear/soapuios-testrunner
+            shell: bash
             options: -e COMMAND_LINE="'/%project%/avanstestsuite.xml'" -it echo $?
             run: |
                 echo $?
