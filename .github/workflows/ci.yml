@@ -19,4 +19,4 @@ jobs:
                 echo "Project"
                 ls /project
                 echo "Test"
-                ./SoapUI-5.7.0/bin/testrunner.sh /project/avanstestsuite.xml
+                ./$SOAPUI_DIR/bin/testrunner.sh /project/avanstestsuite.xml
