@@ -1,0 +1,20 @@
+name: SoapUI API test
+
+on:
+    push:
+        branches: [ "main" ]
+    pull_request:
+        branches: [ "main" ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        env:
+            SOAPUI_PROJECT_DIR: /src/test/soapui
+            SOAPUI_PROJECT_FILE: AvansTestSuite-soapui-project.xml
+        steps:
+        - uses: addnab/docker-run-action@v3
+          with:
+            image: smartbear/soapuios-testrunner
+            options: -v ${{ env.SOAPUI_PROJECT_DIR }}:/project COMMAND_LINE="'/%project%/${{ env.SOAPUI_PROJECT_FILE }}'" -it
+            run: echo $?
