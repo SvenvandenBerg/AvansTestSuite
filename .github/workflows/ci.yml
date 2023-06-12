@@ -10,10 +10,9 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-        - uses: actions/checkout@v3
         - uses: addnab/docker-run-action@v3
           with:
             image: smartbear/soapuios-testrunner
-            options: -v=${{ github.workspace }}/src/test/soapui:/project --entrypoint /bin/bash
+            options: -v=${{ github.workspace }}/src/test/soapui:/project -i --entrypoint /bin/bash
             run: |
                 ./$SOAPUI_DIR/bin/testrunner.sh /project/avanstestsuite.xml
