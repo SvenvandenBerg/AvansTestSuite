@@ -11,7 +11,7 @@ jobs:
         runs-on: ubuntu-latest
         env: 
             soapui-projectfile-location: /src/test/soapui
-            soapui-projectfile-name: /project/avanstestsuite.xml
+            soapui-projectfile-name: /project/AvansTestSuite.xml
         steps:
         - uses: actions/checkout@v3
         - uses: addnab/docker-run-action@v3
@@ -20,3 +20,9 @@ jobs:
             options: -v=${{ github.workspace }}${{ env.soapui-projectfile-location }}:/project --entrypoint /bin/bash
             run: |
                 ./$SOAPUI_DIR/bin/testrunner.sh ${{ env.soapui-projectfile-name }}
+        - name: Neoload test
+          run: |
+            python -m pip install -U pip
+            pip3 install neoload
+            neoload login 579d0fd1ebc40b7fe1d0af8dc8d0cea9ec29fe914b67edea
+            neoload run 2466ad7f-b2de-4e53-b4c5-fe949d7c9b02
